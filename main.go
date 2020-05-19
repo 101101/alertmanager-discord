@@ -87,23 +87,18 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			Name: discordName,
 		}
 
-		Content := "```"
+		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" === %s === \n```", amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(status), alert.Labels["severity"], amo.CommonAnnotations.Summary)
 		}
 
 		for _, alert := range alerts {
 			realname := alert.Labels["instance"]
-			//if strings.Contains(realname, "localhost") && alert.Labels["exported_instance"] != "" {
-			//	realname = alert.Labels["exported_instance"]
-			//}
-			Content += fmt.Sprintf("[%s]: %s on %s\n%s\n", strings.ToUpper(status), alert.Labels["alertname"], realname, alert.Annotations.Description)
-			if alert.Labels["severity"] != "" {
-				Content += fmt.Sprintf("Severity: %s\n\n", alert.Labels["severity"])
-			}
+			
+			Content += fmt.Sprintf("`Description:` %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, (index .Alerts 0).GeneratorURL, alert.Labels["alertname"])
 		}
 
-		DO.Content = Content + "```"
+		DO.Content = Content + ""
 
 		DOD, _ := json.Marshal(DO)
 		http.Post(webhookUrl, "application/json", bytes.NewReader(DOD))
