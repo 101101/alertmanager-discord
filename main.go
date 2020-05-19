@@ -90,7 +90,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(Status), amo.Alerts.alert.Labels["severity"], amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(ama.Status), ama.Labels["severity"], amo.CommonAnnotations.Summary)
 		}
 
 		for _, alert := range alerts {
