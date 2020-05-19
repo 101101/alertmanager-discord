@@ -76,9 +76,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	groupedAlerts := make(map[string][]alertManAlert)
-
-	for _, alert := range amo.Alerts {
+	for _ := range amo.Alerts {
 		DO := discordOut{
 			//Name: status,
 			Name: discordName,
