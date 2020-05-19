@@ -86,7 +86,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" ** [%s - %s]: %s **\n", strings.ToUpper(alert.Status), amo.CommonLabels["severity"], amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s **\n", strings.ToUpper(alert.Status), amo.CommonLabels.Severity, amo.CommonAnnotations.Summary)
 		}
 
 		DO.Content = Content + fmt.Sprintf("@here - %s - %s\nView: **[Prometheus]( %s )** , **[Runbook](https://101101.github.io/kb/search/?q=%s )**", amo.CommonLabels.Alertname, amo.CommonAnnotations.Description, ama.GeneratorURL, amo.CommonLabels.Alertname)
