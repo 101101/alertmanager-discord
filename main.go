@@ -90,16 +90,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(ama.Status), ama.Labels["severity"], amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s ** - %s \n", strings.ToUpper(ama.Status), ama.Labels["severity"], amo.CommonAnnotations.Summary, status)
 		}
 
-		for _, alert := range alerts {
-			realname := alert.Labels["instance"]
-			
-			Content += fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, ama.GeneratorURL, alert.Labels["alertname"])
-		}
-
-		DO.Content = Content + ""
+		DO.Content = Content += fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, ama.GeneratorURL, alert.Labels["alertname"])
 
 		DOD, _ := json.Marshal(DO)
 		http.Post(webhookUrl, "application/json", bytes.NewReader(DOD))
