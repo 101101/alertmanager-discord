@@ -90,13 +90,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(.Status), amo.Alerts.alert.Labels["severity"], amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s ** \n", strings.ToUpper(Status), amo.Alerts.alert.Labels["severity"], amo.CommonAnnotations.Summary)
 		}
 
 		for _, alert := range alerts {
 			realname := alert.Labels["instance"]
 			
-			Content += fmt.Sprintf("`Description:` %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, ama.GeneratorURL, alert.Labels["alertname"])
+			Content += fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, ama.GeneratorURL, alert.Labels["alertname"])
 		}
 
 		DO.Content = Content + ""
