@@ -76,7 +76,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	for _ := range amo.Alerts {
+	for alert := range amo.Alerts {
 		DO := discordOut{
 			//Name: status,
 			Name: discordName,
