@@ -1,5 +1,5 @@
-# Built following https://medium.com/@chemidy/create-the-smallest-and-secured-golang-docker-image-based-on-scratch-4752223b7324
-
+# Built following https://medium.com/@chemidy/create-the-smallest-and-secured-golang-docker-image-based-on-scratch-4752223b7324  
+# modified build from: https://github.com/skandyla/alertmanager-discord  
 # STEP 1 build executable binary
 FROM golang:alpine as builder
 # Install SSL ca certificates
