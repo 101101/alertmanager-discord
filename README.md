@@ -1,16 +1,17 @@
 # alertmanager-discord  
-========
-
-
-## Summary
 
 > A minimal docker image with golang application, which listens for Prometheus Alertmanager's notifications and pushes them to a Discord channel.  
 
 
 ## Environment configuration variables  
-DISCORD_WEBHOOK - webhook, where to post alerts. For more details see: https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks   
-DISCORD_NAME - bot name at Discord. Default AlertManager.  
+**DISCORD_WEBHOOK** - webhook, where to post alerts. For more details see: https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks   
+**DISCORD_NAME** - bot name at Discord. Default AlertManager.  
 
+**.env**
+```sh
+DISCORD_WEBHOOK=https://discord.com/api/webhooks/XXXXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYYYYY
+DISCORD_NAME=<webhook name>
+```
 
 ## Example Prometheus Alertmanager config:  
 
