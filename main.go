@@ -93,7 +93,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			Content = fmt.Sprintf(" ** [%s - %s]: %s ** - %s \n", strings.ToUpper(ama.Status), ama.Labels["severity"], amo.CommonAnnotations.Summary, status)
 		}
 
-		DO.Content = Content + fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, ama.GeneratorURL, alert.Labels["alertname"])
+		DO.Content = Content + fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", amo.CommonLabels.Alertname, alert.Annotations.Description, ama.GeneratorURL, amo.CommonLabels.Alertname)
 
 		DOD, _ := json.Marshal(DO)
 		http.Post(webhookUrl, "application/json", bytes.NewReader(DOD))
