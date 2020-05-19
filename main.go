@@ -95,7 +95,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		for _, alert := range alerts {
 			realname := alert.Labels["instance"]
 			
-			Content += fmt.Sprintf("`Description:` %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, (index .Alerts 0).GeneratorURL, alert.Labels["alertname"])
+			Content += fmt.Sprintf("`Description:` %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", alert.Labels["alertname"], alert.Annotations.Description, GeneratorURL, alert.Labels["alertname"])
 		}
 
 		DO.Content = Content + ""
