@@ -17,9 +17,11 @@ type alertManOut struct {
 	Alerts            []alertManAlert `json:"alerts"`
 	CommonAnnotations struct {
 		Summary string `json:"summary"`
+		Description string `json:"description"`
 	} `json:"commonAnnotations"`
 	CommonLabels struct {
 		Alertname string `json:"alertname"`
+		Severity string `json:"severity"`
 	} `json:"commonLabels"`
 	ExternalURL string `json:"externalURL"`
 	GroupKey    string `json:"groupKey"`
@@ -84,10 +86,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		Content := ""
 		if amo.CommonAnnotations.Summary != "" {
-			Content = fmt.Sprintf(" ** [%s - %s]: %s **\n", strings.ToUpper(alert.Status), ama.Labels["severity"], amo.CommonAnnotations.Summary)
+			Content = fmt.Sprintf(" ** [%s - %s]: %s **\n", strings.ToUpper(alert.Status), amo.CommonLabels["severity"], amo.CommonAnnotations.Summary)
 		}
 
-		DO.Content = Content + fmt.Sprintf("@here - %s - %s\n`Links`: **[Prom](%s)** , **[Runbook](https://101101.github.io/kb/search/?q=%s**", amo.CommonLabels.Alertname, ama.Annotations.Description, ama.GeneratorURL, amo.CommonLabels.Alertname)
+		DO.Content = Content + fmt.Sprintf("@here - %s - %s\nView: **[Prometheus]( %s )** , **[Runbook](https://101101.github.io/kb/search/?q=%s )**", amo.CommonLabels.Alertname, amo.CommonAnnotations.Description, ama.GeneratorURL, amo.CommonLabels.Alertname)
 
 		DOD, _ := json.Marshal(DO)
 		http.Post(webhookUrl, "application/json", bytes.NewReader(DOD))
